@@ -1,0 +1,40 @@
+# mostafa abdelhamid mostafa sec 3 AI
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
+
+data = pd.read_csv("healthcare-dataset-stroke-data.csv")
+print("The first five rows: ")
+print(data.head(5000))
+
+print("The data shape: ", data.shape)
+
+print("Data describtion: ")
+print(data.describe())
+
+print("Data info: ")
+print(data.info())
+
+print("The number of NULL values: ")
+print(data.isnull().sum())
+
+data = data.dropna()
+
+print("The number of duplicated rows: ", data.duplicated().sum())
+data = data.drop_duplicates()
+
+if 'gender' in data.columns:
+    le = LabelEncoder()
+    data['gender'] = le.fit_transform(data['gender'])
+
+
+scaler = StandardScaler()
+numerical_cols = ['age', 'avg_glucose_level']  
+data[numerical_cols] = scaler.fit_transform(data[numerical_cols])
+
+X = data.drop('stroke', axis=1)
+y = data['stroke']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print("The size of the trained data: ", X_train.shape)
+print("The size of the tested data: ", X_test.shape)
