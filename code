@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 
 data = pd.read_csv("healthcare-dataset-stroke-data.csv")
 print("The first five rows: ")
-print(data.head(5000))
+print(data.head(5))
 
 print("The data shape: ", data.shape)
 
